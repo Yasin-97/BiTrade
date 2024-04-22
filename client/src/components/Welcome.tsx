@@ -1,7 +1,9 @@
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
+import { TransactionContextProvider } from "../context/TransactionsContext";
+import { shortenAddress } from "../utils/ShortenAddress";
 
 const companyCommonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
@@ -24,8 +26,24 @@ const Input = ({ placeholder, name, type, value, handleChange }: InputType) => (
 );
 
 export default function Welcome({}) {
-  const handleSubmit = (e) => {};
-  const handleChange = (e) => {};
+  const [formError, setFormError] = useState<string>("");
+  const {
+    connectWallet,
+    currentAccount,
+    handleChange,
+    formData,
+    sendTransaction,
+  } = TransactionContextProvider();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { addressTo, amount, keyword, message } = formData;
+    if (!addressTo || !amount || !keyword || !message) {
+      return setFormError("Please fill all the fields!");
+    }
+
+    sendTransaction();
+  };
   return (
     <div className="flex w-full justify-center items-center">
       <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
@@ -37,13 +55,18 @@ export default function Welcome({}) {
             Explore the crypto world. Buy and sell cryptocurrencies easily on
             Krypto.
           </p>
-          <button
-            type="button"
-            className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-          >
-            <AiFillPlayCircle className="text-white mr-2" />
-            <p className="text-white text-base font-semibold">Connect Wallet</p>
-          </button>
+          {!currentAccount && (
+            <button
+              onClick={connectWallet}
+              type="button"
+              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
+            >
+              <AiFillPlayCircle className="text-white mr-2" />
+              <p className="text-white text-base font-semibold">
+                Connect Wallet
+              </p>
+            </button>
+          )}
           <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
             <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
               Reliability
@@ -71,7 +94,9 @@ export default function Welcome({}) {
                 <BsInfoCircle fontSize={17} color="#fff" />
               </div>
               <div>
-                <p className="text-white font-light text-sm">wallet</p>
+                <p className="text-white font-light text-sm">
+                  {shortenAddress(currentAccount)}
+                </p>
                 <p className="text-white font-semibold text-lg mt-1">
                   Ethereum
                 </p>
@@ -79,6 +104,11 @@ export default function Welcome({}) {
             </div>
           </div>
           <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
+            {formError && (
+              <p className="text-red-600 bg-red-300 px-4 rounded-md">
+                {formError}
+              </p>
+            )}
             <Input
               placeholder="Address To"
               name="addressTo"
