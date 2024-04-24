@@ -137,7 +137,7 @@ export const TransactionProvider = ({ children }: TransactionProviderType) => {
       if (!ethereum) return alert("Please install Matamask");
       const { addressTo, amount, keyword, message } = formData;
       const transactionsContract = createEthereumContract();
-      const parsedAmount = ethers.utils.parseEther(amount);
+      const parsedAmount = ethers.utils.parseEther(amount as string);
 
       await ethereum.request({
         method: "eth_sendTransaction",
