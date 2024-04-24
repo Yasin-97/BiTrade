@@ -9,7 +9,7 @@ const Landing = () => {
           <span className="text-grad-1">Virtual Coins.</span>
         </h1>
         <a
-          href="#services"
+          href="#welcome"
           className="cursor-pointer flex flex-row justify-center items-center my-5 border-2 border-gray-300 hover:bg-gray-300 hover:text-black text-gray-100 text p-3 rounded-full transition-all"
         >
           <AiFillPlayCircle className=" mr-2" />
