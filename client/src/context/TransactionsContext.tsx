@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useEffect,
   createContext,
@@ -10,6 +10,12 @@ import { ethers } from "ethers";
 // import ethers from "ethers";
 
 import { contractABI, contractAddress } from "../utils/contracts";
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ethereum?: any;
+  }
+}
 
 type TransactionProviderType = { children: ReactNode };
 type transactionType = {
@@ -20,7 +26,7 @@ type transactionType = {
   timestamp?: string;
   message: string;
   keyword: string;
-  amount: string;
+  amount: { _hex: string } | string;
 };
 
 type FromDataType = Omit<transactionType, "addressFrom" | "timestamp">;
@@ -65,6 +71,7 @@ export const TransactionContext = createContext<TransactionContextType>({
   isLoading: false,
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { ethereum } = window;
 
 const createEthereumContract = () => {
@@ -170,11 +177,17 @@ export const TransactionProvider = ({ children }: TransactionProviderType) => {
         const transactionsContract = createEthereumContract();
         const availableTransactions =
           await transactionsContract.getAllTransactions();
-        console.log("hhhh");
 
         const structuredTransactions = availableTransactions.map(
           (transaction: transactionType) => {
-            console.log(transaction, "transaction");
+            let _amount;
+            if (
+              typeof transaction.amount === "object" &&
+              transaction.amount &&
+              "_hex" in transaction.amount
+            ) {
+              _amount = transaction.amount._hex;
+            }
             return {
               addressTo: transaction.receiver,
               addressFrom: transaction.sender,
@@ -183,7 +196,7 @@ export const TransactionProvider = ({ children }: TransactionProviderType) => {
               ).toLocaleString(),
               message: transaction.message,
               keyword: transaction.keyword,
-              amount: parseInt(transaction.amount._hex) / 10 ** 18,
+              amount: parseInt(_amount as string) / 10 ** 18,
             };
           }
         );
