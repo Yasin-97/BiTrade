@@ -4,6 +4,7 @@ import { BsInfoCircle } from "react-icons/bs";
 import { ChangeEvent, useState } from "react";
 import { TransactionContextProvider } from "../context/TransactionsContext";
 import { shortenAddress } from "../utils/ShortenAddress";
+import Loader from "./Loader";
 
 const companyCommonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
@@ -25,7 +26,7 @@ const Input = ({ placeholder, name, type, value, handleChange }: InputType) => (
   />
 );
 
-export default function Welcome({}) {
+export default function Welcome() {
   const [formError, setFormError] = useState<string>("");
   const {
     connectWallet,
@@ -33,9 +34,10 @@ export default function Welcome({}) {
     handleChange,
     formData,
     sendTransaction,
+    isLoading,
   } = TransactionContextProvider();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const { addressTo, amount, keyword, message } = formData;
     if (!addressTo || !amount || !keyword || !message) {
@@ -95,7 +97,7 @@ export default function Welcome({}) {
               </div>
               <div>
                 <p className="text-white font-light text-sm">
-                  {shortenAddress(currentAccount)}
+                  {shortenAddress(currentAccount as string)}
                 </p>
                 <p className="text-white font-semibold text-lg mt-1">
                   Ethereum
@@ -136,13 +138,17 @@ export default function Welcome({}) {
 
             <div className="h-[1px] w-full bg-gray-400 my-2" />
 
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer"
-            >
-              Send now
-            </button>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer"
+              >
+                Send now
+              </button>
+            )}
           </div>
         </div>
       </div>
