@@ -10,7 +10,7 @@ type TransactionsCardType = {
   keyword?: string;
   url?: string;
   message: string;
-  amount: string;
+  amount: { _hex: string } | string;
 };
 const TransactionsCard = ({
   addressTo,
@@ -53,7 +53,7 @@ const TransactionsCard = ({
               To: {shortenAddress(addressTo as string)}
             </p>
           </a>
-          <p className="text-white text-base">Amount: {amount} ETH</p>
+          <p className="text-white text-base">Amount: {amount as string} ETH</p>
           {message && (
             <>
               <br />
