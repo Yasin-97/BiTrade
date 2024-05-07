@@ -5,6 +5,7 @@ import { ChangeEvent, useState } from "react";
 import { TransactionContextProvider } from "../context/TransactionsContext";
 import { shortenAddress } from "../utils/ShortenAddress";
 import Loader from "./Loader";
+import { FeatueGraph } from "../components/FeatureGraph.tsx";
 
 const companyCommonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
@@ -69,7 +70,8 @@ export default function Welcome() {
               </p>
             </button>
           )}
-          <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
+          <FeatueGraph className="" />
+          {/* <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
             <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
               Reliability
             </div>
@@ -84,7 +86,7 @@ export default function Welcome() {
             <div className={`rounded-br-2xl ${companyCommonStyles}`}>
               Blockchain
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10">
           <div className="p-3 flex justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism ">
