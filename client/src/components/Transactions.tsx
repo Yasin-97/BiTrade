@@ -26,22 +26,23 @@ const TransactionsCard = ({
   return (
     <div
       className="bg-[#181918] m-4 flex flex-1
-      2xl:min-w-[450px]
-      2xl:max-w-[500px]
+      2xl:min-w-[350px]
+      2xl:max-w-[400px]
       sm:min-w-[270px]
       sm:max-w-[300px]
       min-w-full
       flex-col p-3 rounded-md hover:shadow-2xl"
     >
-      <div className="flex flex-col items-center w-full mt-3">
-        <div className="display-flex justify-start w-full mb-6 p-2">
+      <div className="flex flex-col items-center w-full">
+        <div className="display-flex justify-start w-full mb-2 p-2">
           <a
             href={`https://sepolia.etherscan.io/tx/${addressFrom}`}
             target="_blank"
             rel="noreferrer"
           >
             <p className="text-white text-base">
-              From: {shortenAddress(addressFrom as string)}
+              <span className="text-gray-300">From:</span>{" "}
+              {shortenAddress(addressFrom as string)}
             </p>
           </a>
           <a
@@ -50,14 +51,19 @@ const TransactionsCard = ({
             rel="noreferrer"
           >
             <p className="text-white text-base">
-              To: {shortenAddress(addressTo as string)}
+              <span className="text-gray-300">To:</span>{" "}
+              {shortenAddress(addressTo as string)}
             </p>
           </a>
-          <p className="text-white text-base">Amount: {amount as string} ETH</p>
+          <p className="text-white text-base">
+            <span className="text-gray-300">Amount:</span> {amount as string}{" "}
+            ETH
+          </p>
           {message && (
             <>
-              <br />
-              <p className="text-white text-base">Message: {message}</p>
+              <p className="text-white text-base mt-3">
+                <span className="text-gray-300">Message:</span> {message}
+              </p>
             </>
           )}
         </div>

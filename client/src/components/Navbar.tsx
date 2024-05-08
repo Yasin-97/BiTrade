@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
-import logo from "../images/logo.png";
 
 type NavBarItemProp = {
   title: string;
@@ -20,12 +19,11 @@ const NavBarItem = ({ title, classprops, setToggleMenu }: NavBarItemProp) => (
 
 export default function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false);
-  console.log("the red", toggleMenu);
 
   return (
     <nav className="w-full flex md:justify-center justify-between items-center p-4 z-30">
       <div className="md:flex-[0.5] flex-initial justify-center items-center">
-        <h1 className="text-white text-4xl">
+        <h1 className="text-white text-3xl">
           Bi
           <span className="text-grad-3">Trade</span>
         </h1>

@@ -20,7 +20,7 @@ export function FeatueGraph({ className }: FeatueGraphType) {
       <ArcherContainer className="h-full w-full">
         <div className="w-full h-full flex items-center py-8">
           <div className="flex w-full flex-col md:flex-col gap-12 sm:gap-0">
-            <div className="w-full flex items-center justify-center  md:items-end gap-4 mf:gap-8 pb-16">
+            <div className="w-full flex items-center justify-center  md:items-end gap-4 mf:gap-8 pb-4 sm:pb-10 mf:pb-16">
               <TextField
                 text="Reliability"
                 id="input1"
@@ -60,7 +60,7 @@ export function FeatueGraph({ className }: FeatueGraphType) {
             </div>
             <div className="md:w-full md:w--1/3 w-full flex items-center justify-center">
               <TextField
-                text="process"
+                text="BitTrade"
                 id="process"
                 relations={[
                   {
@@ -85,7 +85,7 @@ export function FeatueGraph({ className }: FeatueGraphType) {
                 className="font-bold border-transparent text-grad-3 border-2 border-gray-400 "
               />
             </div>
-            <div className="flex justify-center gap-4 mf:gap-8 pt-16">
+            <div className="flex justify-center gap-4 mf:gap-8 pt-4 sm:pt-10 mf:pt-16">
               <TextField text="Low Fees" id="output1" />
               <TextField text="Blockchain" id="output2" />
               <TextField text="Web 3.0" id="output3" />

@@ -3,7 +3,7 @@ import {
   Navbar,
   Services,
   Transactions,
-  Welcome,
+  Market,
   Landing,
 } from "./components/index.ts";
 
@@ -13,7 +13,7 @@ function App() {
       <div className="gradient-bg-welcom bg-[#0f0e13] flex justify-center flex-col items-center">
         <Navbar />
         <Landing />
-        <Welcome />
+        <Market />
       </div>
       <Services />
       <Transactions />

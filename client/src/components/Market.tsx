@@ -2,13 +2,11 @@ import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 import { ChangeEvent, useState } from "react";
-import { TransactionContextProvider } from "../context/TransactionsContext";
-import { shortenAddress } from "../utils/ShortenAddress";
-import Loader from "./Loader";
-import { FeatueGraph } from "../components/FeatureGraph.tsx";
+import { TransactionContextProvider } from "../context/TransactionsContext.tsx";
+import { shortenAddress } from "../utils/ShortenAddress.ts";
+import Loader from "./Loader.tsx";
+import { FeatueGraph } from "./FeatureGraph.tsx";
 
-const companyCommonStyles =
-  "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 type InputType = {
   placeholder: string;
   name: string;
@@ -27,7 +25,7 @@ const Input = ({ placeholder, name, type, value, handleChange }: InputType) => (
   />
 );
 
-export default function Welcome() {
+export default function Market() {
   const [formError, setFormError] = useState<string>("");
   const {
     connectWallet,
@@ -48,7 +46,7 @@ export default function Welcome() {
     sendTransaction();
   };
   return (
-    <div id="welcome" className="flex w-full justify-center items-center">
+    <div id="market" className="flex w-full justify-center items-center">
       <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
         <div className="flex flex-1 justify-start items-start flex-col mf:mr-10">
           <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
@@ -56,7 +54,7 @@ export default function Welcome() {
           </h1>
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
             Explore the crypto world. Buy and sell cryptocurrencies easily on
-            Krypto.
+            BiTrade.
           </p>
           {!currentAccount && (
             <button
@@ -70,25 +68,9 @@ export default function Welcome() {
               </p>
             </button>
           )}
-          <FeatueGraph className="" />
-          {/* <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
-            <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
-              Reliability
-            </div>
-            <div className={companyCommonStyles}>Security</div>
-            <div className={`sm:rounded-tr-2xl ${companyCommonStyles}`}>
-              Ethereum
-            </div>
-            <div className={`sm:rounded-bl-2xl ${companyCommonStyles}`}>
-              Web 3.0
-            </div>
-            <div className={companyCommonStyles}>Low Fees</div>
-            <div className={`rounded-br-2xl ${companyCommonStyles}`}>
-              Blockchain
-            </div>
-          </div> */}
+          <FeatueGraph className="hidden mf:block" />
         </div>
-        <div className="flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10">
+        <div className="flex flex-col flex-1 items-center justify-start w-full">
           <div className="p-3 flex justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism ">
             <div className="flex justify-between flex-col w-full h-full">
               <div className="flex justify-between items-start">
@@ -153,6 +135,7 @@ export default function Welcome() {
             )}
           </div>
         </div>
+        <FeatueGraph className=" mf:hidden" />
       </div>
     </div>
   );
